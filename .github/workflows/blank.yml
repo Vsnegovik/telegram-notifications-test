@@ -25,4 +25,7 @@ jobs:
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
-        args: The ${{ PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }') }} event triggered first step.
+        format: markdown
+        message: |
+          **FTB-ADMIN**
+          Release `${{ steps.get_latest_release.outputs.data }}` is building and shipping to production
