@@ -27,5 +27,5 @@ jobs:
         token: ${{ secrets.TELEGRAM_TOKEN }}
         format: markdown
         message: |
-          **FTB-ADMIN**
-          Release `${{ github.event.number }}` is building and shipping to production
+          WMS
+          [PR${{ github.event.number }}](https://github.com/Vsnegovik/telegram-notifications-test/pull/${{ github.event.number }})
