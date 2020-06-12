@@ -22,7 +22,7 @@ jobs:
     - uses: actions/checkout@master
     
 
-    - uses: 8BitJonny/gh-get-current-pr@v1
+    - uses: 8BitJonny/gh-get-current-pr@1.0.0
       id: PR
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
