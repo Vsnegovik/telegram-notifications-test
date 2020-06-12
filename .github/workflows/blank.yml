@@ -22,16 +22,17 @@ jobs:
     - uses: actions/checkout@master
     
 
-    - uses: 8BitJonny/gh-get-current-pr@1.0.0
-      id: PR
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        filterOutClosed: true
-    - run: echo "Your PR is ${prNumber} and its JSON is ${prJSON}"
-      if: success() && steps.PR.outputs.number
-      env:
-        prNumber: ${{ steps.PR.outputs.number }}
-        prJSON: ${{ steps.PR.outputs.pr }}
+    - uses: actions/checkout@v1
+      # Find the PR associated with this push, if there is one.
+      - uses: jwalton/gh-find-current-pr@v1
+        id: findPr
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      # This will echo "Your PR is 7", or be skipped if there is no current PR.
+      - run: echo "Your PR is ${PR}"
+        if: success() && steps.findPr.outputs.number
+        env:
+          PR: ${{ steps.findPr.outputs.pr }}
 
     - name: send custom message with args
       uses: appleboy/telegram-action@master
@@ -41,4 +42,4 @@ jobs:
         format: markdown
         message: |
           **FTB-ADMIN**
-          Release `${{ steps.PR.outputs.number }}` is building and shipping to production
+          Release `${{ steps.findPr.outputs.number }}` is building and shipping to production
