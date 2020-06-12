@@ -20,6 +20,8 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     - uses: actions/checkout@master
+    - uses: 8BitJonny/gh-get-current-pr@1.0.0
+      id: get_current_pull_request
     - name: send custom message with args
       uses: appleboy/telegram-action@master
       with:
@@ -28,4 +30,4 @@ jobs:
         format: markdown
         message: |
           **FTB-ADMIN**
-          Release `${{ steps.get_latest_release.outputs.data }}` is building and shipping to production
+          Release `${{ steps.get_current_pull_request.outputs.data }}` is building and shipping to production
