@@ -23,4 +23,4 @@ jobs:
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
-        args: The ${{ commit.ref }} event triggered first step.
+        args: The ${{ GITHUB_REF }} event triggered first step.
