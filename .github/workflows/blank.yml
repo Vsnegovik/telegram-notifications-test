@@ -28,4 +28,4 @@ jobs:
         format: markdown
         message: |
           WMS
-          [PR${{ github.event.number }}](https://github.com/Vsnegovik/telegram-notifications-test/pull/${{ github.event.number }})
+          [PR ${{ github.event.pull_request.head.ref }}](https://github.com/Vsnegovik/telegram-notifications-test/pull/${{ github.event.number }})
