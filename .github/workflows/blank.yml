@@ -20,8 +20,20 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     - uses: actions/checkout@master
-    - uses: 8BitJonny/gh-get-current-pr@1.0.0
-      id: get_current_pull_request
+    
+
+    - uses: 8BitJonny/gh-get-current-pr@v1
+      id: PR
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        // Only return if PR is still open
+        filterOutClosed: true
+    - run: echo "Your PR is ${prNumber} and its JSON is ${prJSON}"
+      if: success() && steps.PR.outputs.number
+      env:
+        prNumber: ${{ steps.PR.outputs.number }}
+        prJSON: ${{ steps.PR.outputs.pr }
+
     - name: send custom message with args
       uses: appleboy/telegram-action@master
       with:
@@ -30,4 +42,4 @@ jobs:
         format: markdown
         message: |
           **FTB-ADMIN**
-          Release `${{ steps.get_current_pull_request.outputs.data }}` is building and shipping to production
+          Release `${{ steps.PR.outputs.number }}` is building and shipping to production
